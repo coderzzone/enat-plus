@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { calculatePregnancy, PregnancyCalculation, CLINICAL_ESTIMATE_NOTE } from '@/lib/pregnancy';
+import { WEEKS_DATA } from '@/lib/weeklyData';
 import { 
   Heart, 
   Calendar, 
@@ -221,36 +222,61 @@ export default function MotherDashboardPage() {
       </div>
 
       {/* 2. "This Week" Baby Development Card */}
-      {weekContent && (
-        <div className="bg-white rounded-2xl p-4 border border-stone-200 shadow-sm space-y-2">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-1.5">
-              <Sparkles className="w-4 h-4 text-enat-600" />
-              <h3 className="text-xs font-bold uppercase tracking-wider text-stone-700">
-                This Week in Development
-              </h3>
-            </div>
-            
-            {!weekContent.reviewed && (
-              <span className="text-[10px] bg-amber-100 text-amber-800 font-medium px-2 py-0.5 rounded-full">
-                Draft - pending clinical review
+      {(() => {
+        const currentWeekNum = Math.min(40, Math.max(1, pregnancyCalc?.weeks || 1));
+        const weekMeta = WEEKS_DATA[currentWeekNum] || WEEKS_DATA[1];
+
+        return (
+          <div className="bg-white rounded-2xl p-4 border border-stone-200 shadow-2xs space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-1.5">
+                <Sparkles className="w-4 h-4 text-enat-600" />
+                <h3 className="text-xs font-bold uppercase tracking-wider text-stone-700">
+                  This Week in Baby Development
+                </h3>
+              </div>
+              
+              <span className="text-[10px] bg-teal-50 text-teal-800 font-semibold px-2 py-0.5 rounded-full border border-teal-200">
+                Week {currentWeekNum}
               </span>
-            )}
-          </div>
+            </div>
 
-          <h4 className="text-sm font-bold text-stone-900">{weekContent.title}</h4>
-          <p className="text-xs text-stone-600 leading-relaxed">{weekContent.body}</p>
+            {/* Fruit & Growth Teaser Row */}
+            <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-teal-50/80 to-stone-50 rounded-xl border border-teal-100">
+              <div className="w-12 h-12 rounded-xl bg-white shadow-2xs border border-teal-200/60 flex items-center justify-center text-2xl flex-shrink-0">
+                {weekMeta.emoji}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-extrabold text-stone-900 leading-tight">
+                  Size of a {weekMeta.fruitEn} <span className="text-stone-500 font-normal">({weekMeta.fruitAm})</span>
+                </p>
+                <div className="flex items-center gap-2 mt-1 text-[11px] text-stone-600 font-medium">
+                  <span>📏 {weekMeta.lengthCm}</span>
+                  <span>•</span>
+                  <span>⚖️ {weekMeta.weightG}</span>
+                </div>
+              </div>
+            </div>
 
-          <div className="pt-2 flex justify-end">
-            <Link
-              href="/app/weekly"
-              className="text-xs font-semibold text-enat-700 hover:text-enat-800 inline-flex items-center gap-1"
-            >
-              Browse all 40 weeks <ChevronRight className="w-3.5 h-3.5" />
-            </Link>
+            <div>
+              <h4 className="text-xs font-bold text-stone-900">{weekMeta.titleEn}</h4>
+              <p className="text-xs text-stone-600 leading-relaxed mt-0.5 line-clamp-2">
+                {weekContent?.body || weekMeta.babyHighlights[0]}
+              </p>
+            </div>
+
+            <div className="pt-1 flex items-center justify-between border-t border-stone-100 text-xs">
+              <span className="text-[11px] text-stone-400">Trimester {weekMeta.trimester}</span>
+              <Link
+                href="/app/weekly"
+                className="font-bold text-enat-700 hover:text-enat-800 inline-flex items-center gap-1"
+              >
+                Explore Week {currentWeekNum} Guide <ChevronRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
       {/* 3. Next Appointment Card */}
       <div className="bg-white rounded-2xl p-4 border border-stone-200 shadow-sm space-y-3">
