@@ -1,0 +1,16 @@
+{
+  "name": "Enat Plus - Maternal Companion",
+  "short_name": "Enat Plus",
+  "description": "Every Week Matters. Every Mother Matters. Maternal health companion for Ethiopia.",
+  "start_url": "/app",
+  "display": "standalone",
+  "background_color": "#fbfaf8",
+  "theme_color": "#0f766e",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
