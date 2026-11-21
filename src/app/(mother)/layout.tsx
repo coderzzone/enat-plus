@@ -3,13 +3,14 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Heart, Calendar, BookOpen, Bell, Activity, Shield, LogOut, Loader2 } from 'lucide-react';
+import { Heart, Calendar, BookOpen, Bell, Activity, Shield, LogOut, Globe2 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
-import { SAFETY_DISCLAIMER } from '@/lib/pregnancy';
+import { LanguageProvider, useLanguage } from '@/lib/LanguageContext';
 
-export default function MotherLayout({ children }: { children: React.ReactNode }) {
+function MotherShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
+  const { language, toggleLanguage, t } = useLanguage();
   const [motherName, setMotherName] = useState<string>('');
   const [loading, setLoading] = useState(true);
 
@@ -40,37 +41,48 @@ export default function MotherLayout({ children }: { children: React.ReactNode }
   };
 
   const navItems = [
-    { href: '/app', label: 'Today', icon: Heart },
-    { href: '/app/weekly', label: 'Weekly', icon: BookOpen },
-    { href: '/app/reminders', label: 'Reminders', icon: Bell },
-    { href: '/app/records', label: 'Health', icon: Activity },
-    { href: '/app/clinic', label: 'Clinic & Privacy', icon: Shield },
+    { href: '/app', label: t('navToday'), icon: Heart },
+    { href: '/app/weekly', label: t('navWeekly'), icon: BookOpen },
+    { href: '/app/reminders', label: t('navReminders'), icon: Bell },
+    { href: '/app/records', label: t('navHealth'), icon: Activity },
+    { href: '/app/clinic', label: t('navClinic'), icon: Shield },
   ];
 
   return (
     <div className="flex flex-col min-h-screen bg-warm-50 pb-20 md:pb-6">
       {/* Top Header */}
-      <header className="bg-white border-b border-stone-200 sticky top-0 z-30 px-4 py-3">
+      <header className="bg-white border-b border-stone-200 sticky top-0 z-30 px-4 py-2.5">
         <div className="max-w-md mx-auto flex items-center justify-between">
           <Link href="/app" className="flex items-center space-x-2">
             <div className="w-8 h-8 rounded-lg bg-enat-100 flex items-center justify-center text-enat-700">
               <Heart className="w-4 h-4 fill-enat-600" />
             </div>
             <div>
-              <span className="font-bold text-stone-900 text-sm tracking-tight">Enat Plus</span>
-              <span className="text-[10px] text-enat-700 ml-1 font-medium">እናት ፕላስ</span>
+              <span className="font-bold text-stone-900 text-sm tracking-tight">{t('brandName')}</span>
+              <span className="text-[10px] text-enat-700 ml-1 font-medium hidden sm:inline">{t('brandSub')}</span>
             </div>
           </Link>
 
-          <div className="flex items-center space-x-3 text-xs">
+          <div className="flex items-center space-x-2 text-xs">
+            {/* Language Switcher Toggle */}
+            <button
+              onClick={toggleLanguage}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-stone-100 hover:bg-stone-200 border border-stone-300/80 text-[11px] font-bold text-stone-800 transition active:scale-95"
+              title="ቋንቋ ቀይር / Switch Language"
+            >
+              <Globe2 className="w-3.5 h-3.5 text-teal-700" />
+              <span>{language === 'am' ? 'አማርኛ' : 'English'}</span>
+            </button>
+
             {motherName && (
-              <span className="text-stone-600 font-medium hidden sm:inline truncate max-w-[120px]">
+              <span className="text-stone-600 font-medium hidden sm:inline truncate max-w-[100px]">
                 {motherName}
               </span>
             )}
+
             <button
               onClick={handleSignOut}
-              title="Sign Out"
+              title={t('signOut')}
               className="text-stone-500 hover:text-stone-800 p-1.5 rounded-lg hover:bg-stone-100 transition-colors"
             >
               <LogOut className="w-4 h-4" />
@@ -88,7 +100,7 @@ export default function MotherLayout({ children }: { children: React.ReactNode }
               pathname === '/app/marketplace' ? 'bg-teal-700 text-white' : 'text-stone-600 hover:text-stone-900'
             }`}
           >
-            🛍️ Market
+            🛍️ {t('navMarket')}
           </Link>
           <span className="text-stone-300">•</span>
           <Link
@@ -97,7 +109,7 @@ export default function MotherLayout({ children }: { children: React.ReactNode }
               pathname === '/app/community' ? 'bg-pink-700 text-white' : 'text-stone-600 hover:text-stone-900'
             }`}
           >
-            💬 Community
+            💬 {t('navCommunity')}
           </Link>
           <span className="text-stone-300">•</span>
           <Link
@@ -106,7 +118,7 @@ export default function MotherLayout({ children }: { children: React.ReactNode }
               pathname === '/app/special-needs' ? 'bg-purple-700 text-white' : 'text-stone-600 hover:text-stone-900'
             }`}
           >
-            💜 Special Needs
+            💜 {t('navSpecialNeeds')}
           </Link>
         </div>
       </div>
@@ -140,5 +152,13 @@ export default function MotherLayout({ children }: { children: React.ReactNode }
         </div>
       </nav>
     </div>
+  );
+}
+
+export default function MotherLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <LanguageProvider>
+      <MotherShell>{children}</MotherShell>
+    </LanguageProvider>
   );
 }

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import { WEEKS_DATA, WeekData } from '@/lib/weeklyData';
 import { SAFETY_DISCLAIMER } from '@/lib/pregnancy';
+import { useLanguage } from '@/lib/LanguageContext';
 import { 
   BookOpen, 
   Sparkles, 
@@ -23,6 +24,7 @@ import {
 } from 'lucide-react';
 
 export default function WeeklyContentPage() {
+  const { language, t } = useLanguage();
   const [selectedWeek, setSelectedWeek] = useState<number>(16); // sensible default
   const [currentGestationalWeek, setCurrentGestationalWeek] = useState<number | null>(null);
   const [currentGestationalDays, setCurrentGestationalDays] = useState<number>(0);
@@ -96,9 +98,9 @@ export default function WeeklyContentPage() {
   const dbItem = dbContentMap[selectedWeek];
 
   const getTrimesterBadge = (trimester: 1 | 2 | 3) => {
-    if (trimester === 1) return { label: 'Trimester 1 • Weeks 1-13', color: 'bg-rose-50 text-rose-700 border-rose-200' };
-    if (trimester === 2) return { label: 'Trimester 2 • Weeks 14-27', color: 'bg-teal-50 text-teal-800 border-teal-200' };
-    return { label: 'Trimester 3 • Weeks 28-40', color: 'bg-amber-50 text-amber-800 border-amber-200' };
+    if (trimester === 1) return { label: `${t('trimester1')} • 1-13`, color: 'bg-rose-50 text-rose-700 border-rose-200' };
+    if (trimester === 2) return { label: `${t('trimester2')} • 14-27`, color: 'bg-teal-50 text-teal-800 border-teal-200' };
+    return { label: `${t('trimester3')} • 28-40`, color: 'bg-amber-50 text-amber-800 border-amber-200' };
   };
 
   const trimInfo = getTrimesterBadge(weekData.trimester);
@@ -107,10 +109,18 @@ export default function WeeklyContentPage() {
     return (
       <div className="flex flex-col items-center justify-center py-24 text-stone-500">
         <Loader2 className="w-8 h-8 animate-spin text-enat-700 mb-2" />
-        <p className="text-xs">Loading baby & maternal guide...</p>
+        <p className="text-xs">{t('loading')}</p>
       </div>
     );
   }
+
+  const fruitDisplayName = language === 'am'
+    ? `${weekData.fruitAm} (${weekData.fruitEn})`
+    : `${weekData.fruitEn} (${weekData.fruitAm})`;
+
+  const displayTitle = language === 'am'
+    ? (weekData.titleAm || weekData.titleEn)
+    : weekData.titleEn;
 
   return (
     <div className="space-y-4 max-w-md mx-auto">
@@ -120,9 +130,9 @@ export default function WeeklyContentPage() {
           <div>
             <h1 className="text-lg font-bold text-stone-900 flex items-center gap-1.5">
               <BookOpen className="w-5 h-5 text-enat-700" />
-              Weekly Development Guide
+              {t('weeklyTitle')}
             </h1>
-            <p className="text-xs text-stone-500">Baby growth & maternal wellness week-by-week</p>
+            <p className="text-xs text-stone-500">{t('weeklySubtitle')}</p>
           </div>
 
           {currentGestationalWeek && (
@@ -131,7 +141,7 @@ export default function WeeklyContentPage() {
               className="inline-flex items-center text-[10px] font-bold bg-enat-50 hover:bg-enat-100 text-enat-800 border border-enat-200 px-2.5 py-1.5 rounded-xl transition shadow-2xs"
             >
               <Sparkles className="w-3 h-3 mr-1 text-enat-600 animate-pulse" />
-              My Week ({currentGestationalWeek})
+              {t('myCurrentWeek')} ({currentGestationalWeek})
             </button>
           )}
         </div>
@@ -146,7 +156,7 @@ export default function WeeklyContentPage() {
                 : 'bg-white text-stone-600 border-stone-200 hover:bg-stone-50'
             }`}
           >
-            🌸 1st Trimester
+            🌸 {t('trimester1')}
           </button>
           <button
             onClick={() => setSelectedWeek(selectedWeek >= 14 && selectedWeek <= 27 ? selectedWeek : 14)}
@@ -156,7 +166,7 @@ export default function WeeklyContentPage() {
                 : 'bg-white text-stone-600 border-stone-200 hover:bg-stone-50'
             }`}
           >
-            🌿 2nd Trimester
+            🌿 {t('trimester2')}
           </button>
           <button
             onClick={() => setSelectedWeek(selectedWeek >= 28 ? selectedWeek : 28)}
@@ -166,7 +176,7 @@ export default function WeeklyContentPage() {
                 : 'bg-white text-stone-600 border-stone-200 hover:bg-stone-50'
             }`}
           >
-            🌟 3rd Trimester
+            🌟 {t('trimester3')}
           </button>
         </div>
       </div>
@@ -195,7 +205,7 @@ export default function WeeklyContentPage() {
                     : 'bg-stone-50 text-stone-600 hover:bg-stone-100 border border-stone-200/80'
                 }`}
               >
-                <span className="text-[10px] font-medium leading-none opacity-80">Wk</span>
+                <span className="text-[10px] font-medium leading-none opacity-80">{t('week')}</span>
                 <span className="text-sm font-black leading-tight">{w}</span>
                 <span className="text-xs mt-0.5">{itemData?.emoji || '🌱'}</span>
                 {isCurrent && (
@@ -219,19 +229,19 @@ export default function WeeklyContentPage() {
             <div>
               <div className="flex items-center gap-1.5 mb-1">
                 <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-white/20 text-teal-100">
-                  Week {weekData.week} of 40
+                  {t('week')} {weekData.week} {t('of40Weeks')}
                 </span>
                 {currentGestationalWeek === weekData.week && (
                   <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-emerald-400 text-emerald-950">
-                    You Are Here
+                    {language === 'am' ? 'የአሁኑ ሳምንትዎ' : 'You Are Here'}
                   </span>
                 )}
               </div>
               <h2 className="text-xl font-black text-white tracking-tight">
-                {weekData.titleEn}
+                {displayTitle}
               </h2>
               <p className="text-xs text-teal-200/90 font-medium">
-                {weekData.titleAm}
+                {language === 'am' ? weekData.titleEn : weekData.titleAm}
               </p>
             </div>
 
@@ -240,8 +250,8 @@ export default function WeeklyContentPage() {
               <div className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-3xl shadow-inner transition transform hover:scale-110">
                 {weekData.emoji}
               </div>
-              <span className="text-[10px] font-bold text-teal-200 mt-1 capitalize text-center leading-tight max-w-[70px]">
-                {weekData.fruitEn}
+              <span className="text-[10px] font-bold text-teal-200 mt-1 capitalize text-center leading-tight max-w-[80px]">
+                {language === 'am' ? weekData.fruitAm : weekData.fruitEn}
               </span>
             </div>
           </div>
@@ -249,11 +259,15 @@ export default function WeeklyContentPage() {
           {/* Size & Weight Metric Pills */}
           <div className="grid grid-cols-2 gap-2 bg-black/25 rounded-2xl p-2.5 backdrop-blur-xs border border-white/10">
             <div className="text-center border-r border-white/10 pr-2">
-              <span className="text-[10px] text-teal-200 block font-medium">Approx. Baby Length</span>
+              <span className="text-[10px] text-teal-200 block font-medium">
+                {language === 'am' ? 'ግምታዊ ርዝመት' : 'Approx. Baby Length'}
+              </span>
               <span className="text-sm font-extrabold text-white">{weekData.lengthCm}</span>
             </div>
             <div className="text-center pl-2">
-              <span className="text-[10px] text-teal-200 block font-medium">Approx. Baby Weight</span>
+              <span className="text-[10px] text-teal-200 block font-medium">
+                {language === 'am' ? 'ግምታዊ ክብደት' : 'Approx. Baby Weight'}
+              </span>
               <span className="text-sm font-extrabold text-white">{weekData.weightG}</span>
             </div>
           </div>
@@ -261,7 +275,11 @@ export default function WeeklyContentPage() {
           {/* Comparison summary */}
           <div className="text-center pt-0.5">
             <p className="text-xs text-teal-100">
-              Your baby is roughly the size of a <span className="font-bold underline decoration-teal-400 underline-offset-2">{weekData.fruitEn}</span> ({weekData.fruitAm})!
+              {language === 'am' ? (
+                <>የፅንሱ መጠን በግምት <span className="font-bold underline decoration-teal-400 underline-offset-2">{weekData.fruitAm}</span> ያክላል!</>
+              ) : (
+                <>Your baby is roughly the size of a <span className="font-bold underline decoration-teal-400 underline-offset-2">{weekData.fruitEn}</span> ({weekData.fruitAm})!</>
+              )}
             </p>
           </div>
         </div>
@@ -277,7 +295,7 @@ export default function WeeklyContentPage() {
               : 'text-stone-600 hover:text-stone-900'
           }`}
         >
-          <Baby className="w-3.5 h-3.5" /> Baby Growth
+          <Baby className="w-3.5 h-3.5" /> {t('tabBabyGrowth')}
         </button>
         <button
           onClick={() => setActiveTab('mom')}
@@ -287,7 +305,7 @@ export default function WeeklyContentPage() {
               : 'text-stone-600 hover:text-stone-900'
           }`}
         >
-          <Heart className="w-3.5 h-3.5" /> Mom's Body
+          <Heart className="w-3.5 h-3.5" /> {t('tabMomsBody')}
         </button>
         <button
           onClick={() => setActiveTab('care')}
@@ -297,7 +315,7 @@ export default function WeeklyContentPage() {
               : 'text-stone-600 hover:text-stone-900'
           }`}
         >
-          <Activity className="w-3.5 h-3.5" /> Care & Food
+          <Activity className="w-3.5 h-3.5" /> {t('tabCareFood')}
         </button>
       </div>
 
@@ -309,10 +327,10 @@ export default function WeeklyContentPage() {
             <div className="flex items-center justify-between border-b border-stone-100 pb-2">
               <h3 className="text-xs font-bold uppercase tracking-wider text-teal-800 flex items-center gap-1.5">
                 <Baby className="w-4 h-4 text-teal-700" />
-                Baby's Development in Week {weekData.week}
+                {language === 'am' ? `በሳምንት ${weekData.week} የሚታዩ የፅንስ እድገቶች` : `Baby's Development in Week ${weekData.week}`}
               </h3>
               <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${trimInfo.color}`}>
-                Trimester {weekData.trimester}
+                {weekData.trimester === 1 ? t('trimester1') : weekData.trimester === 2 ? t('trimester2') : t('trimester3')}
               </span>
             </div>
 
@@ -329,7 +347,9 @@ export default function WeeklyContentPage() {
 
             {dbItem?.body && (
               <div className="p-3 bg-teal-50/50 rounded-xl border border-teal-100/80 text-xs text-stone-700 leading-relaxed">
-                <p className="font-semibold text-teal-900 mb-1">Weekly Fetal Summary:</p>
+                <p className="font-semibold text-teal-900 mb-1">
+                  {language === 'am' ? 'ሳምንታዊ የፅንስ ማጠቃለያ:' : 'Weekly Fetal Summary:'}
+                </p>
                 <p>{dbItem.body}</p>
               </div>
             )}
@@ -342,9 +362,11 @@ export default function WeeklyContentPage() {
             <div className="flex items-center justify-between border-b border-stone-100 pb-2">
               <h3 className="text-xs font-bold uppercase tracking-wider text-rose-800 flex items-center gap-1.5">
                 <Heart className="w-4 h-4 text-rose-600" />
-                Mother's Body & Symptoms
+                {t('maternalChanges')}
               </h3>
-              <span className="text-[10px] text-stone-400 font-medium">Week {weekData.week} Changes</span>
+              <span className="text-[10px] text-stone-400 font-medium">
+                {t('week')} {weekData.week}
+              </span>
             </div>
 
             <div className="space-y-2">
@@ -358,12 +380,14 @@ export default function WeeklyContentPage() {
 
             {/* Quick Action to log health symptoms */}
             <div className="pt-2 border-t border-stone-100 flex items-center justify-between">
-              <span className="text-[11px] text-stone-500">Feeling changes today?</span>
+              <span className="text-[11px] text-stone-500">
+                {language === 'am' ? 'ዛሬ የተለየ ለውጥ ተሰምቶዎታል?' : 'Feeling changes today?'}
+              </span>
               <Link
                 href="/app/records"
                 className="inline-flex items-center gap-1 text-xs font-bold text-enat-700 hover:text-enat-800 bg-enat-50 px-3 py-1.5 rounded-xl border border-enat-200 transition"
               >
-                <PlusCircle className="w-3.5 h-3.5" /> Log in Health Records
+                <PlusCircle className="w-3.5 h-3.5" /> {t('logSymptomsInRecords')}
               </Link>
             </div>
           </div>
@@ -375,17 +399,17 @@ export default function WeeklyContentPage() {
             <div className="flex items-center justify-between border-b border-stone-100 pb-2">
               <h3 className="text-xs font-bold uppercase tracking-wider text-amber-800 flex items-center gap-1.5">
                 <Activity className="w-4 h-4 text-amber-600" />
-                Clinical Care & Ethiopian Nutrition
+                {t('ethiopianNutritionTip')}
               </h3>
               <span className="text-[10px] bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full font-semibold">
-                Midwife Tip
+                {language === 'am' ? 'የአዋላጅ ምክር' : 'Midwife Tip'}
               </span>
             </div>
 
             <div className="p-3 bg-amber-50/60 rounded-xl border border-amber-200/80 text-xs text-amber-950 space-y-1">
               <p className="font-bold flex items-center gap-1">
                 <ShieldCheck className="w-4 h-4 text-amber-700" />
-                Weekly Healthcare Advice:
+                {language === 'am' ? 'ሳምንታዊ የጤና እንክብካቤ ምክር:' : 'Weekly Healthcare Advice:'}
               </p>
               <p className="leading-relaxed pl-5">{weekData.careTip}</p>
             </div>
@@ -393,19 +417,21 @@ export default function WeeklyContentPage() {
             <div className="p-3 bg-emerald-50/60 rounded-xl border border-emerald-200/80 text-xs text-emerald-950 space-y-1">
               <p className="font-bold flex items-center gap-1">
                 <Apple className="w-4 h-4 text-emerald-700" />
-                Nutritional Focus:
+                {language === 'am' ? 'ልዩ ትኩረት የሚሰጠው ምግብ:' : 'Nutritional Focus:'}
               </p>
               <p className="leading-relaxed pl-5">{weekData.nutritionTip}</p>
             </div>
 
             {/* Quick Link to Community */}
             <div className="pt-2 border-t border-stone-100 flex items-center justify-between">
-              <span className="text-[11px] text-stone-500">Have questions for fellow moms?</span>
+              <span className="text-[11px] text-stone-500">
+                {language === 'am' ? 'ለሌሎች እናቶች ጥያቄ አለዎት?' : 'Have questions for fellow moms?'}
+              </span>
               <Link
                 href="/app/community"
                 className="inline-flex items-center gap-1 text-xs font-bold text-pink-700 hover:text-pink-800 bg-pink-50 px-3 py-1.5 rounded-xl border border-pink-200 transition"
               >
-                <MessageSquare className="w-3.5 h-3.5" /> Open Community Hub
+                <MessageSquare className="w-3.5 h-3.5" /> {t('discussInCommunity')}
               </Link>
             </div>
           </div>
@@ -420,7 +446,7 @@ export default function WeeklyContentPage() {
           className="flex-1 inline-flex items-center justify-center text-xs font-bold text-stone-700 bg-white hover:bg-stone-50 disabled:opacity-40 disabled:pointer-events-none py-2.5 px-3 rounded-xl border border-stone-200 shadow-2xs transition"
         >
           <ChevronLeft className="w-4 h-4 mr-1 text-stone-500" />
-          Week {Math.max(1, selectedWeek - 1)}
+          {t('week')} {Math.max(1, selectedWeek - 1)}
         </button>
 
         <span className="text-xs font-extrabold text-stone-400 px-2">
@@ -432,7 +458,7 @@ export default function WeeklyContentPage() {
           onClick={() => setSelectedWeek((prev) => Math.min(40, prev + 1))}
           className="flex-1 inline-flex items-center justify-center text-xs font-bold text-stone-700 bg-white hover:bg-stone-50 disabled:opacity-40 disabled:pointer-events-none py-2.5 px-3 rounded-xl border border-stone-200 shadow-2xs transition"
         >
-          Week {Math.min(40, selectedWeek + 1)}
+          {t('week')} {Math.min(40, selectedWeek + 1)}
           <ChevronRight className="w-4 h-4 ml-1 text-stone-500" />
         </button>
       </div>
@@ -441,7 +467,7 @@ export default function WeeklyContentPage() {
       <div className="bg-amber-50/80 border border-amber-200 rounded-2xl p-3 text-[11px] text-amber-900 leading-relaxed space-y-1">
         <div className="flex items-center gap-1.5 font-bold text-amber-950">
           <ShieldCheck className="w-4 h-4 text-amber-700 flex-shrink-0" />
-          <span>Educational Guidance Disclaimer</span>
+          <span>{language === 'am' ? 'የትምህርታዊ መመሪያ ማስታወሻ' : 'Educational Guidance Disclaimer'}</span>
         </div>
         <p>{SAFETY_DISCLAIMER}</p>
       </div>

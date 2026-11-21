@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { calculatePregnancy, PregnancyCalculation, CLINICAL_ESTIMATE_NOTE } from '@/lib/pregnancy';
 import { WEEKS_DATA } from '@/lib/weeklyData';
+import { useLanguage } from '@/lib/LanguageContext';
 import { 
   Heart, 
   Calendar, 
@@ -24,6 +25,7 @@ import {
 
 export default function MotherDashboardPage() {
   const router = useRouter();
+  const { language, t } = useLanguage();
   const [loading, setLoading] = useState(true);
   const [pregnancyCalc, setPregnancyCalc] = useState<PregnancyCalculation | null>(null);
   const [weekContent, setWeekContent] = useState<any | null>(null);
@@ -144,7 +146,7 @@ export default function MotherDashboardPage() {
     return (
       <div className="flex flex-col items-center justify-center py-24 text-stone-500">
         <Loader2 className="w-8 h-8 animate-spin text-enat-700 mb-2" />
-        <p className="text-xs">Loading your maternal companion...</p>
+        <p className="text-xs">{t('loading')}</p>
       </div>
     );
   }
@@ -156,19 +158,29 @@ export default function MotherDashboardPage() {
         <div className="w-12 h-12 rounded-full bg-enat-100 text-enat-700 flex items-center justify-center mx-auto">
           <Calendar className="w-6 h-6" />
         </div>
-        <h2 className="text-lg font-bold text-stone-800">Set Up Your Pregnancy Details</h2>
+        <h2 className="text-lg font-bold text-stone-800">
+          {language === 'am' ? 'የእርግዝና መረጃዎን ያስገቡ' : 'Set Up Your Pregnancy Details'}
+        </h2>
         <p className="text-xs text-stone-600 max-w-sm mx-auto">
-          Please provide the first day of your Last Menstrual Period (LMP) to unlock your weekly baby updates, due date, and personalized reminders.
+          {language === 'am' 
+            ? 'ሳምንታዊ የፅንስ ዝመናዎችን፣ የመውለጃ ቀንን እና ማስታወሻዎችን ለማግኘት የመጨረሻ የወር አበባዎን የመጀመሪያ ቀን (LMP) ያስገቡ::' 
+            : 'Please provide the first day of your Last Menstrual Period (LMP) to unlock your weekly baby updates, due date, and personalized reminders.'}
         </p>
         <Link
           href="/app/onboarding"
           className="inline-flex items-center justify-center bg-enat-700 hover:bg-enat-800 text-white text-xs font-semibold px-5 py-2.5 rounded-xl shadow transition"
         >
-          Add Pregnancy Details <ArrowRight className="w-4 h-4 ml-1.5" />
+          {language === 'am' ? 'የእርግዝና መረጃ ጨምር' : 'Add Pregnancy Details'} <ArrowRight className="w-4 h-4 ml-1.5" />
         </Link>
       </div>
     );
   }
+
+  const trimesterLabel = pregnancyCalc.trimester === 1 
+    ? t('trimester1') 
+    : pregnancyCalc.trimester === 2 
+    ? t('trimester2') 
+    : t('trimester3');
 
   return (
     <div className="space-y-4">
@@ -180,24 +192,24 @@ export default function MotherDashboardPage() {
         <div className="flex items-start justify-between">
           <div>
             <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-white/20 text-white uppercase tracking-wider mb-2">
-              Trimester {pregnancyCalc.trimester}
+              {trimesterLabel}
             </span>
             <div className="text-3xl font-extrabold tracking-tight">
-              Week {pregnancyCalc.weeks}{' '}
+              {t('week')} {pregnancyCalc.weeks}{' '}
               <span className="text-lg font-normal text-enat-200">
-                + {pregnancyCalc.days} {pregnancyCalc.days === 1 ? 'day' : 'days'}
+                + {pregnancyCalc.days} {pregnancyCalc.days === 1 ? t('day') : t('days')}
               </span>
             </div>
           </div>
 
           <div className="text-right">
-            <span className="text-[11px] text-enat-200 block">Estimated Due Date</span>
+            <span className="text-[11px] text-enat-200 block">{t('estimatedDueDate')}</span>
             <span className="text-sm font-bold text-white block">
               {pregnancyCalc.formattedEdd}
             </span>
             {pregnancyCalc.isClinicianConfirmed && (
               <span className="text-[10px] font-medium text-emerald-200 block">
-                Clinician Confirmed
+                {language === 'am' ? 'በሀኪም የተረጋገጠ' : 'Clinician Confirmed'}
               </span>
             )}
           </div>
@@ -206,8 +218,8 @@ export default function MotherDashboardPage() {
         {/* 40-Week Progress Bar */}
         <div className="mt-5 space-y-1.5">
           <div className="flex justify-between text-[11px] text-enat-200">
-            <span>Progress through 40 Weeks</span>
-            <span className="font-semibold text-white">{pregnancyCalc.progressPercent}%</span>
+            <span>{t('of40Weeks')}</span>
+            <span className="font-semibold text-white">{pregnancyCalc.progressPercent}% {t('completed')}</span>
           </div>
           <div className="w-full bg-black/25 rounded-full h-2.5 overflow-hidden p-0.5">
             <div
@@ -216,7 +228,9 @@ export default function MotherDashboardPage() {
             />
           </div>
           <p className="text-[10px] text-enat-200/90 italic pt-1">
-            {CLINICAL_ESTIMATE_NOTE}
+            {language === 'am' 
+              ? 'ይህ ግምት ክሊኒካዊ ምክርን አይተካም:: ትክክለኛውን ሁኔታ ከሀኪምዎ ጋር ያረጋግጡ::'
+              : CLINICAL_ESTIMATE_NOTE}
           </p>
         </div>
       </div>
@@ -226,18 +240,26 @@ export default function MotherDashboardPage() {
         const currentWeekNum = Math.min(40, Math.max(1, pregnancyCalc?.weeks || 1));
         const weekMeta = WEEKS_DATA[currentWeekNum] || WEEKS_DATA[1];
 
+        const fruitName = language === 'am'
+          ? `${weekMeta.fruitAm} (${weekMeta.fruitEn})`
+          : `${weekMeta.fruitEn} (${weekMeta.fruitAm})`;
+
+        const weekTitle = language === 'am'
+          ? (weekMeta.titleAm || weekMeta.titleEn)
+          : weekMeta.titleEn;
+
         return (
           <div className="bg-white rounded-2xl p-4 border border-stone-200 shadow-2xs space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-1.5">
                 <Sparkles className="w-4 h-4 text-enat-600" />
                 <h3 className="text-xs font-bold uppercase tracking-wider text-stone-700">
-                  This Week in Baby Development
+                  {language === 'am' ? 'የዚህ ሳምንት የፅንስ እድገት' : 'This Week in Baby Development'}
                 </h3>
               </div>
               
               <span className="text-[10px] bg-teal-50 text-teal-800 font-semibold px-2 py-0.5 rounded-full border border-teal-200">
-                Week {currentWeekNum}
+                {t('week')} {currentWeekNum}
               </span>
             </div>
 
@@ -248,7 +270,7 @@ export default function MotherDashboardPage() {
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-xs font-extrabold text-stone-900 leading-tight">
-                  Size of a {weekMeta.fruitEn} <span className="text-stone-500 font-normal">({weekMeta.fruitAm})</span>
+                  {language === 'am' ? `የ${fruitName} መጠን` : `Size of a ${fruitName}`}
                 </p>
                 <div className="flex items-center gap-2 mt-1 text-[11px] text-stone-600 font-medium">
                   <span>📏 {weekMeta.lengthCm}</span>
@@ -259,19 +281,23 @@ export default function MotherDashboardPage() {
             </div>
 
             <div>
-              <h4 className="text-xs font-bold text-stone-900">{weekMeta.titleEn}</h4>
+              <h4 className="text-xs font-bold text-stone-900">{weekTitle}</h4>
               <p className="text-xs text-stone-600 leading-relaxed mt-0.5 line-clamp-2">
-                {weekContent?.body || weekMeta.babyHighlights[0]}
+                {language === 'am'
+                  ? (weekMeta.babyHighlights[0] || weekContent?.body)
+                  : (weekContent?.body || weekMeta.babyHighlights[0])}
               </p>
             </div>
 
             <div className="pt-1 flex items-center justify-between border-t border-stone-100 text-xs">
-              <span className="text-[11px] text-stone-400">Trimester {weekMeta.trimester}</span>
+              <span className="text-[11px] text-stone-400">
+                {weekMeta.trimester === 1 ? t('trimester1') : weekMeta.trimester === 2 ? t('trimester2') : t('trimester3')}
+              </span>
               <Link
                 href="/app/weekly"
                 className="font-bold text-enat-700 hover:text-enat-800 inline-flex items-center gap-1"
               >
-                Explore Week {currentWeekNum} Guide <ChevronRight className="w-3.5 h-3.5" />
+                {language === 'am' ? `ሳምንት ${currentWeekNum} ሙሉ መመሪያ` : `Explore Week ${currentWeekNum} Guide`} <ChevronRight className="w-3.5 h-3.5" />
               </Link>
             </div>
           </div>
@@ -284,14 +310,14 @@ export default function MotherDashboardPage() {
           <div className="flex items-center space-x-2">
             <Calendar className="w-4 h-4 text-stone-500" />
             <h3 className="text-xs font-bold uppercase tracking-wider text-stone-700">
-              Next Appointment
+              {t('upcomingAppointment')}
             </h3>
           </div>
           <Link
             href="/app/records"
             className="text-xs text-enat-700 font-semibold hover:underline"
           >
-            All records
+            {t('viewAll')}
           </Link>
         </div>
 
@@ -300,7 +326,7 @@ export default function MotherDashboardPage() {
             <div>
               <p className="text-xs font-bold text-stone-900">{nextAppointment.title}</p>
               <p className="text-[11px] text-stone-600 mt-0.5">
-                {new Date(nextAppointment.scheduled_at).toLocaleDateString('en-US', {
+                {new Date(nextAppointment.scheduled_at).toLocaleDateString(language === 'am' ? 'am-ET' : 'en-US', {
                   weekday: 'short',
                   month: 'short',
                   day: 'numeric',
@@ -315,14 +341,14 @@ export default function MotherDashboardPage() {
               )}
             </div>
             <span className="text-[10px] bg-emerald-100 text-emerald-800 font-medium px-2 py-0.5 rounded-full">
-              Scheduled
+              {t('confirmed')}
             </span>
           </div>
         ) : (
           <div className="text-center py-4 bg-stone-50/50 rounded-xl border border-dashed border-stone-200 text-stone-500">
-            <p className="text-xs">No upcoming appointment scheduled.</p>
+            <p className="text-xs">{t('noUpcomingAppt')}</p>
             <p className="text-[10px] text-stone-400 mt-0.5">
-              Add your clinical checkups to stay prepared.
+              {t('scheduleWithClinic')}
             </p>
           </div>
         )}
@@ -334,19 +360,21 @@ export default function MotherDashboardPage() {
           <div className="flex items-center space-x-2">
             <Clock className="w-4 h-4 text-stone-500" />
             <h3 className="text-xs font-bold uppercase tracking-wider text-stone-700">
-              Today's Reminders
+              {t('remindersTitle')}
             </h3>
           </div>
           <Link
             href="/app/reminders"
             className="text-xs text-enat-700 font-semibold hover:underline flex items-center gap-1"
           >
-            <PlusCircle className="w-3.5 h-3.5" /> Add
+            <PlusCircle className="w-3.5 h-3.5" /> {language === 'am' ? 'ጨምር' : 'Add'}
           </Link>
         </div>
 
         <p className="text-[10px] text-stone-400 italic">
-          Reminder: Only take medicines already prescribed by your healthcare professional.
+          {language === 'am'
+            ? 'ማስታወሻ: በህክምና ባለሙያ የታዘዙ መድኃኒቶችን ብቻ ይውሰዱ::'
+            : 'Reminder: Only take medicines already prescribed by your healthcare professional.'}
         </p>
 
         {todayReminders.length > 0 ? (
@@ -387,12 +415,12 @@ export default function MotherDashboardPage() {
           </div>
         ) : (
           <div className="text-center py-4 bg-stone-50/50 rounded-xl border border-dashed border-stone-200 text-stone-500">
-            <p className="text-xs">No reminders for today.</p>
+            <p className="text-xs">{t('noRemindersToday')}</p>
             <Link
               href="/app/reminders"
               className="text-[11px] text-enat-700 font-medium underline mt-1 inline-block"
             >
-              Set medication or appointment reminder
+              {language === 'am' ? 'የመድኃኒት ወይም የቀጠሮ ማስታወሻ ያስቀምጡ' : 'Set medication or appointment reminder'}
             </Link>
           </div>
         )}
@@ -406,12 +434,12 @@ export default function MotherDashboardPage() {
           </div>
           <div>
             <p className="text-xs font-bold text-stone-900">
-              {enrolledClinic ? enrolledClinic.name : 'Independent Pregnancy Tracking'}
+              {enrolledClinic ? enrolledClinic.name : (language === 'am' ? 'የግል እርግዝና ክትትል' : 'Independent Pregnancy Tracking')}
             </p>
             <p className="text-[11px] text-stone-600">
               {enrolledClinic
-                ? 'Care coordination active • You control what is shared'
-                : 'No clinic connected • You can use Enat Plus completely independently'}
+                ? (language === 'am' ? 'የክሊኒክ ክትትል ክፍት ነው • የሚጋሩትን መረጃ መቆጣጠር ይችላሉ' : 'Care coordination active • You control what is shared')
+                : (language === 'am' ? 'የተገናኘ ክሊኒክ የለም • እናት ፕላስን ሙሉ በሙሉ በግል መጠቀም ይችላሉ' : 'No clinic connected • You can use Enat Plus completely independently')}
             </p>
           </div>
         </div>
@@ -419,7 +447,7 @@ export default function MotherDashboardPage() {
           href="/app/clinic"
           className="text-xs font-semibold text-enat-700 hover:text-enat-800 whitespace-nowrap pl-2"
         >
-          {enrolledClinic ? 'Manage Privacy' : 'Connect Clinic'}
+          {enrolledClinic ? t('managePrivacy') : (language === 'am' ? 'ክሊኒክ አገናኝ' : 'Connect Clinic')}
         </Link>
       </div>
     </div>
