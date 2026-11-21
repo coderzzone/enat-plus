@@ -35,56 +35,56 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-[#faf8f5] text-stone-800 selection:bg-teal-700 selection:text-white">
       {/* 1. TOP ANNOUNCEMENT BANNER */}
-      <div className="bg-[#080f1a] text-stone-300 text-[11px] sm:text-xs py-2 px-4 text-center border-b border-white/10">
+      <div className="bg-gradient-to-r from-teal-900 via-teal-800 to-stone-900 text-white text-[11px] sm:text-xs py-2 px-4 text-center border-b border-teal-700/40">
         <div className="max-w-7xl mx-auto flex items-center justify-center gap-2">
-          <span className="bg-gradient-to-r from-emerald-500 via-amber-400 to-rose-500 text-stone-950 font-black px-2 py-0.5 rounded-full text-[10px] uppercase tracking-wider">
+          <span className="bg-amber-400 text-amber-950 font-bold px-2 py-0.5 rounded-full text-[10px] uppercase tracking-wider">
             ኢትዮጵያ 🇪🇹
           </span>
-          <span className="font-medium text-stone-300">
+          <span className="font-medium text-stone-100">
             Ethiopia&apos;s Integrated Maternal Health Companion & Hospital Care Coordination Platform
           </span>
         </div>
       </div>
 
-      {/* 2. NAVIGATION BAR (Dark Sleek Glass) */}
-      <header className="sticky top-0 z-40 bg-[#0c1424]/95 backdrop-blur-md border-b border-white/10 shadow-lg">
+      {/* 2. NAVIGATION BAR (Clean White / Cream Glass) */}
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200/80 shadow-2xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3 group">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center text-white shadow-md shadow-teal-900/50 group-hover:scale-105 transition-transform">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-teal-600 to-teal-800 flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform">
               <Heart className="w-5 h-5 fill-white/20 stroke-[2.5px]" />
             </div>
             <div>
               <div className="flex items-center space-x-1.5">
-                <span className="font-black text-white text-lg tracking-tight">Enat Plus</span>
-                <span className="text-xs bg-teal-500/20 text-teal-300 font-bold px-2 py-0.5 rounded-full border border-teal-500/30">
+                <span className="font-black text-stone-950 text-lg tracking-tight">Enat Plus</span>
+                <span className="text-xs bg-teal-50 text-teal-800 font-bold px-2 py-0.5 rounded-full border border-teal-200">
                   እናት ፕላስ
                 </span>
               </div>
-              <p className="text-[10px] text-stone-400 font-medium">Maternal Care & Hospital Network</p>
+              <p className="text-[10px] text-stone-500 font-medium">Maternal Care & Hospital Network</p>
             </div>
           </Link>
 
           {/* Center Navigation Links (Desktop) */}
-          <nav className="hidden md:flex items-center space-x-7 text-xs font-semibold text-stone-300">
-            <a href="#showcase" className="hover:text-cyan-400 transition">Mobile App</a>
-            <a href="#ecosystem" className="hover:text-cyan-400 transition">For Mothers</a>
-            <a href="#clinics" className="hover:text-cyan-400 transition">For Hospitals</a>
-            <a href="#marketplace" className="hover:text-cyan-400 transition">Marketplace</a>
-            <a href="#safety" className="hover:text-cyan-400 transition">Clinical Safety</a>
+          <nav className="hidden md:flex items-center space-x-7 text-xs font-semibold text-stone-600">
+            <a href="#showcase" className="hover:text-teal-700 transition">Mobile App</a>
+            <a href="#ecosystem" className="hover:text-teal-700 transition">For Mothers</a>
+            <a href="#clinics" className="hover:text-teal-700 transition">For Hospitals</a>
+            <a href="#marketplace" className="hover:text-teal-700 transition">Marketplace</a>
+            <a href="#safety" className="hover:text-teal-700 transition">Clinical Safety</a>
           </nav>
 
           {/* Action Buttons */}
           <div className="flex items-center space-x-2 sm:space-x-3">
             <Link
               href="/login"
-              className="text-xs font-bold text-stone-300 hover:text-white px-3.5 py-2 rounded-xl transition"
+              className="text-xs font-bold text-stone-700 hover:text-teal-700 px-3.5 py-2 rounded-xl transition"
             >
               Sign In
             </Link>
             <Link
               href="/register"
-              className="text-xs font-bold bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-400 hover:to-cyan-500 text-white px-4.5 py-2.5 rounded-xl shadow-md shadow-teal-950/40 transition active:scale-95 flex items-center gap-1.5"
+              className="text-xs font-bold bg-teal-700 hover:bg-teal-800 text-white px-4.5 py-2.5 rounded-xl shadow-xs transition active:scale-95 flex items-center gap-1.5"
             >
               <span>Get Started</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -93,14 +93,16 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* 3. HERO SECTION WITH DUAL MOBILE APP SHOWCASE */}
-      <section id="showcase" className="relative overflow-hidden bg-[#0c1424] text-white pt-10 pb-16 sm:pt-14 sm:pb-24 border-b border-white/10">
-        {/* Glow & Backdrop Accents */}
+      {/* 3. HERO SECTION WITH DUAL MOBILE APP SHOWCASE (Harmonious Cream Theme) */}
+      <section id="showcase" className="relative overflow-hidden bg-[#faf8f5] text-stone-900 pt-8 pb-16 sm:pt-12 sm:pb-22 border-b border-stone-200/70">
+        {/* Ethiopian Heritage Geometric Pattern & Glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full overflow-hidden pointer-events-none opacity-40">
-          <div className="absolute top-10 left-10 w-96 h-96 rounded-full bg-cyan-500/15 blur-3xl" />
-          <div className="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-teal-500/20 blur-3xl" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-blue-600/10 blur-[120px]" />
+          <div className="absolute top-10 left-1/4 w-96 h-96 rounded-full bg-teal-400/20 blur-3xl" />
+          <div className="absolute top-36 right-1/4 w-96 h-96 rounded-full bg-amber-300/25 blur-3xl" />
         </div>
+
+        {/* Traditional Ethiopian Pattern Accent Strip */}
+        <div className="h-1.5 w-full bg-gradient-to-r from-amber-500 via-teal-700 to-rose-600 mb-8 max-w-6xl mx-auto rounded-full opacity-80" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
@@ -108,20 +110,20 @@ export default function LandingPage() {
             {/* LEFT COLUMN: HEADLINE, CTAS & TRUST INDICATORS */}
             <div className="lg:col-span-6 space-y-6 text-left">
               {/* Top Tag Pill */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-500/10 border border-teal-500/30 text-teal-300 text-xs font-semibold shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-                <span>Reimagining Ethiopia&apos;s Maternal Health Journey</span>
-                <span className="text-stone-500">•</span>
-                <span className="text-amber-400 font-bold">እናት ፕላስ</span>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-50 border border-teal-200 text-teal-900 text-xs font-semibold shadow-2xs">
+                <Sparkles className="w-4 h-4 text-amber-600" />
+                <span>Modernizing Ethiopia&apos;s Maternal Health Journey</span>
+                <span className="text-teal-400">•</span>
+                <span className="font-bold text-teal-800">እናት ፕላስ</span>
               </div>
 
               {/* Grand Headline */}
-              <h1 className="text-3xl sm:text-5xl lg:text-[3.25rem] font-black text-white tracking-tight leading-[1.12]">
+              <h1 className="text-3xl sm:text-5xl lg:text-[3.25rem] font-black text-stone-900 tracking-tight leading-[1.14]">
                 Professional Digital Maternal Care for Ethiopia
               </h1>
 
               {/* Subtitle Description */}
-              <p className="text-sm sm:text-base text-stone-300 leading-relaxed font-normal max-w-xl">
+              <p className="text-sm sm:text-base text-stone-600 leading-relaxed font-normal max-w-xl">
                 Guiding mothers through all 40 weeks with culturally attuned milestones, privacy-first hospital chart coordination, peer community, and verified maternal pharmacies.
               </p>
 
@@ -129,7 +131,7 @@ export default function LandingPage() {
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2 max-w-md">
                 <Link
                   href="/register"
-                  className="flex-1 inline-flex items-center justify-center bg-gradient-to-r from-teal-500 via-teal-600 to-cyan-600 hover:from-teal-400 hover:to-cyan-500 text-white font-bold text-sm px-6 py-3.5 rounded-xl shadow-lg shadow-teal-950/60 transition-all active:scale-[0.98] gap-2"
+                  className="flex-1 inline-flex items-center justify-center bg-teal-700 hover:bg-teal-800 text-white font-bold text-sm px-6 py-3.5 rounded-xl shadow-md shadow-teal-900/15 transition-all active:scale-[0.98] gap-2"
                 >
                   <span>Get Started Today</span>
                   <ArrowRight className="w-4 h-4" />
@@ -137,33 +139,33 @@ export default function LandingPage() {
 
                 <Link
                   href="/clinic"
-                  className="inline-flex items-center justify-center bg-white/5 hover:bg-white/10 text-stone-200 hover:text-white font-semibold text-sm px-5 py-3.5 rounded-xl border border-white/15 transition-all active:scale-[0.98] gap-2"
+                  className="inline-flex items-center justify-center bg-white hover:bg-stone-50 text-stone-800 font-semibold text-sm px-5 py-3.5 rounded-xl border border-stone-300 shadow-2xs transition-all active:scale-[0.98] gap-2"
                 >
-                  <Building2 className="w-4 h-4 text-cyan-400" />
+                  <Building2 className="w-4 h-4 text-teal-700" />
                   <span>Clinic & Staff Portal</span>
                 </Link>
               </div>
 
               {/* Ministry & Admin Link */}
-              <div className="text-[11px] text-stone-400 pt-1">
+              <div className="text-[11px] text-stone-500 pt-1">
                 Ministry of Health or Facility Administrator?{' '}
-                <Link href="/admin" className="text-cyan-400 hover:underline font-semibold">
+                <Link href="/admin" className="text-teal-700 hover:underline font-semibold">
                   Access Super Admin Governance →
                 </Link>
               </div>
 
-              {/* Trust Badges Row (Bank-level security / MOH / Hospital style) */}
-              <div className="pt-6 border-t border-white/10 flex flex-wrap items-center gap-y-3 gap-x-6 text-xs text-stone-300 font-medium">
+              {/* Trust Badges Row */}
+              <div className="pt-6 border-t border-stone-200/90 flex flex-wrap items-center gap-y-3 gap-x-6 text-xs text-stone-700 font-medium">
                 <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-cyan-400" />
+                  <ShieldCheck className="w-4 h-4 text-teal-700" />
                   <span>100% Mother-Consented EHR</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Award className="w-4 h-4 text-amber-400" />
+                  <Award className="w-4 h-4 text-amber-700" />
                   <span>MOH Ethiopia Guidelines</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Building2 className="w-4 h-4 text-emerald-400" />
+                  <Building2 className="w-4 h-4 text-rose-700" />
                   <span>Tikur Anbessa & St. Paul Ready</span>
                 </div>
               </div>
@@ -172,14 +174,14 @@ export default function LandingPage() {
             {/* RIGHT COLUMN: DUAL MOBILE DEVICE SHOWCASE */}
             <div className="lg:col-span-6 flex flex-col items-center justify-center relative pt-4 lg:pt-0">
               
-              {/* Interactive Screen Selector Switcher */}
-              <div className="flex items-center justify-center gap-1.5 mb-5 bg-[#142034] p-1.5 rounded-2xl border border-white/10 shadow-md">
+              {/* Interactive Screen Selector Switcher (Matching Tab Style of Rest of Page) */}
+              <div className="flex items-center justify-center gap-1.5 mb-5 bg-stone-200/80 p-1.5 rounded-2xl border border-stone-300/60 shadow-2xs">
                 <button
                   onClick={() => setPhoneScreen('dashboard')}
                   className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
                     phoneScreen === 'dashboard'
-                      ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white shadow-xs'
-                      : 'text-stone-300 hover:text-white'
+                      ? 'bg-teal-700 text-white shadow-2xs'
+                      : 'text-stone-600 hover:text-stone-900'
                   }`}
                 >
                   📱 Dashboard
@@ -188,8 +190,8 @@ export default function LandingPage() {
                   onClick={() => setPhoneScreen('weekly')}
                   className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
                     phoneScreen === 'weekly'
-                      ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white shadow-xs'
-                      : 'text-stone-300 hover:text-white'
+                      ? 'bg-teal-700 text-white shadow-2xs'
+                      : 'text-stone-600 hover:text-stone-900'
                   }`}
                 >
                   🥑 Week 16 Fruit
@@ -198,8 +200,8 @@ export default function LandingPage() {
                   onClick={() => setPhoneScreen('market')}
                   className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
                     phoneScreen === 'market'
-                      ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white shadow-xs'
-                      : 'text-stone-300 hover:text-white'
+                      ? 'bg-teal-700 text-white shadow-2xs'
+                      : 'text-stone-600 hover:text-stone-900'
                   }`}
                 >
                   🛍️ Motherpreneur
@@ -210,7 +212,7 @@ export default function LandingPage() {
               <div className="relative w-full max-w-[480px] h-[550px] sm:h-[590px] flex items-center justify-center">
 
                 {/* 1. BACKGROUND PHONE (Angled Left - Onboarding / Cultural Welcome Screen) */}
-                <div className="absolute left-0 sm:left-4 top-6 w-[230px] sm:w-[250px] h-[470px] sm:h-[500px] rounded-[38px] bg-stone-950 p-2.5 border-[5px] border-stone-800/90 shadow-2xl -rotate-6 transition-transform duration-500 hover:-rotate-3 hover:scale-105 opacity-65 hover:opacity-100 z-10 hidden sm:block">
+                <div className="absolute left-0 sm:left-4 top-6 w-[230px] sm:w-[250px] h-[470px] sm:h-[500px] rounded-[38px] bg-stone-950 p-2.5 border-[5px] border-stone-800 shadow-2xl shadow-stone-800/30 -rotate-6 transition-transform duration-500 hover:-rotate-3 hover:scale-105 opacity-80 hover:opacity-100 z-10 hidden sm:block">
                   {/* Screen Frame */}
                   <div className="w-full h-full rounded-[28px] bg-gradient-to-b from-[#091524] via-[#0c1e34] to-[#06101c] text-white p-4 flex flex-col justify-between overflow-hidden relative border border-white/5">
                     {/* Status Bar */}
@@ -263,60 +265,59 @@ export default function LandingPage() {
                   </div>
                 </div>
 
-                {/* 2. FOREGROUND PHONE (Front & Center - High Fidelity Live Screen) */}
-                <div className="relative sm:translate-x-12 sm:translate-y-0 w-[275px] sm:w-[305px] h-[530px] sm:h-[570px] rounded-[42px] bg-stone-950 p-2.5 sm:p-3 border-[6px] border-stone-700/80 shadow-[0_30px_70px_rgba(0,0,0,0.85)] ring-1 ring-white/15 z-20">
+                {/* 2. FOREGROUND PHONE (Front & Center - Live App Screen with Clean Authentic Styling) */}
+                <div className="relative sm:translate-x-12 sm:translate-y-0 w-[275px] sm:w-[310px] h-[535px] sm:h-[575px] rounded-[42px] bg-stone-950 p-2.5 sm:p-3 border-[6px] border-stone-850 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.35)] ring-1 ring-stone-900/10 z-20">
                   {/* Side Phone Buttons */}
                   <div className="absolute -left-[8px] top-24 w-[3px] h-8 bg-stone-600 rounded-l-sm" />
                   <div className="absolute -left-[8px] top-34 w-[3px] h-8 bg-stone-600 rounded-l-sm" />
                   <div className="absolute -right-[8px] top-28 w-[3px] h-12 bg-stone-600 rounded-r-sm" />
 
-                  {/* Inside Display */}
-                  <div className="w-full h-full rounded-[32px] bg-[#0c1524] text-white flex flex-col justify-between overflow-hidden relative border border-white/10">
+                  {/* Inside Display - Crisp Mobile App Canvas */}
+                  <div className="w-full h-full rounded-[32px] bg-[#f8f6f2] text-stone-900 flex flex-col justify-between overflow-hidden relative border border-stone-300/80">
                     
                     {/* Status Bar & Dynamic Island */}
-                    <div className="pt-2 px-3.5 flex items-center justify-between text-[11px] text-stone-300">
+                    <div className="pt-2 px-3.5 flex items-center justify-between text-[11px] text-stone-700">
                       <span className="font-bold tracking-tight text-[10px]">9:41</span>
-                      <div className="w-20 h-4 bg-black rounded-full flex items-center justify-end pr-1.5">
-                        <div className="w-1.5 h-1.5 rounded-full bg-teal-400/90 animate-pulse" />
+                      <div className="w-20 h-4 bg-stone-950 rounded-full flex items-center justify-end pr-1.5">
+                        <div className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse" />
                       </div>
-                      <div className="flex items-center gap-1.5 text-stone-400">
+                      <div className="flex items-center gap-1.5 text-stone-600">
                         <span className="text-[9px] font-bold">5G</span>
-                        <div className="w-3.5 h-2 border border-stone-400 rounded-xs p-0.5 flex items-center">
-                          <div className="w-2 h-1 bg-emerald-400 rounded-2xs" />
+                        <div className="w-3.5 h-2 border border-stone-700 rounded-xs p-0.5 flex items-center">
+                          <div className="w-2 h-1 bg-teal-700 rounded-2xs" />
                         </div>
                       </div>
                     </div>
 
                     {/* App Header */}
-                    <div className="px-3.5 pt-2 pb-1 flex items-center justify-between">
+                    <div className="px-3.5 pt-2 pb-1 flex items-center justify-between border-b border-stone-200/60 bg-white">
                       <div>
-                        <h3 className="text-sm font-black tracking-tight text-white flex items-center gap-1.5">
+                        <h3 className="text-sm font-black tracking-tight text-stone-950 flex items-center gap-1.5">
                           <span>
                             {phoneScreen === 'dashboard' && 'Dashboard'}
                             {phoneScreen === 'weekly' && 'Weekly Guide'}
                             {phoneScreen === 'market' && 'Motherpreneur'}
                           </span>
-                          <span className="text-[9px] font-semibold bg-teal-500/20 text-teal-300 px-1.5 py-0.5 rounded-md border border-teal-500/30">
+                          <span className="text-[9px] font-semibold bg-teal-50 text-teal-800 px-1.5 py-0.5 rounded-md border border-teal-200">
                             ሳምንት 16
                           </span>
                         </h3>
-                        <p className="text-[10px] text-stone-400 font-medium">ጤና ይስጥልኝ, Chaltu</p>
+                        <p className="text-[10px] text-stone-500 font-medium">ጤና ይስጥልኝ, Chaltu</p>
                       </div>
-                      <div className="w-7 h-7 rounded-full bg-stone-800/80 border border-white/10 flex items-center justify-center relative">
+                      <div className="w-7 h-7 rounded-full bg-stone-100 border border-stone-200 flex items-center justify-center relative">
                         <span className="text-xs">🔔</span>
                         <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-rose-500 rounded-full" />
                       </div>
                     </div>
 
                     {/* Screen Body Content */}
-                    <div className="flex-1 px-3 py-1 space-y-2 overflow-hidden text-left">
+                    <div className="flex-1 px-3 py-1.5 space-y-2 overflow-hidden text-left bg-[#f8f6f2]">
                       
                       {/* VIEW 1: DASHBOARD */}
                       {phoneScreen === 'dashboard' && (
                         <>
-                          {/* Hero Fruit Card (Equb Balance Card Style) */}
-                          <div className="rounded-2xl bg-gradient-to-br from-teal-700 via-teal-800 to-cyan-900 p-3 text-white shadow-md border border-teal-500/30 relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 rounded-full blur-xl" />
+                          {/* Hero Fruit Card (Matching Mobile App Avocado Style) */}
+                          <div className="rounded-2xl bg-gradient-to-br from-teal-700 via-teal-800 to-teal-900 p-3 text-white shadow-sm border border-teal-600 relative overflow-hidden">
                             <div className="flex items-center justify-between text-[10px] text-teal-200">
                               <span className="font-semibold uppercase tracking-wider">Current Fetal Size</span>
                               <span className="bg-teal-900/80 text-teal-300 px-2 py-0.5 rounded-full border border-teal-400/30 font-bold">
@@ -349,54 +350,54 @@ export default function LandingPage() {
                           </div>
 
                           {/* Upcoming ANC Checkup */}
-                          <div className="rounded-xl bg-[#142236] p-2.5 border border-white/5 flex items-center justify-between">
+                          <div className="rounded-xl bg-white p-2.5 border border-stone-200/90 shadow-2xs flex items-center justify-between">
                             <div className="flex items-center gap-2.5">
-                              <div className="w-7 h-7 rounded-lg bg-teal-500/20 text-teal-400 flex items-center justify-center">
+                              <div className="w-7 h-7 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center">
                                 <Calendar className="w-3.5 h-3.5" />
                               </div>
                               <div>
-                                <p className="text-[10px] font-bold text-stone-200">St. Paul Hospital (ANC #2)</p>
-                                <p className="text-[8px] text-stone-400">Dr. Bethlehem Tadesse • In 4 days</p>
+                                <p className="text-[10px] font-bold text-stone-900">St. Paul Hospital (ANC #2)</p>
+                                <p className="text-[8px] text-stone-500">Dr. Bethlehem Tadesse • In 4 days</p>
                               </div>
                             </div>
-                            <span className="text-[8px] font-bold text-teal-400 bg-teal-950/80 px-2 py-0.5 rounded-full border border-teal-800">
+                            <span className="text-[8px] font-bold text-teal-800 bg-teal-50 px-2 py-0.5 rounded-full border border-teal-200">
                               Confirmed
                             </span>
                           </div>
 
                           {/* Recent Health Logs */}
                           <div className="space-y-1.5">
-                            <div className="flex items-center justify-between text-[10px] text-stone-400 px-0.5 font-semibold">
+                            <div className="flex items-center justify-between text-[10px] text-stone-600 px-0.5 font-bold">
                               <span>Recent Health Logs</span>
-                              <span className="text-cyan-400 text-[9px]">View All</span>
+                              <span className="text-teal-700 text-[9px]">View All</span>
                             </div>
 
-                            <div className="rounded-xl bg-[#142236] p-2 border border-white/5 flex items-center justify-between">
+                            <div className="rounded-xl bg-white p-2 border border-stone-200/90 shadow-2xs flex items-center justify-between">
                               <div className="flex items-center gap-2">
-                                <div className="w-6 h-6 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center">
+                                <div className="w-6 h-6 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center">
                                   <Activity className="w-3 h-3" />
                                 </div>
                                 <div>
-                                  <p className="text-[10px] font-bold text-stone-200">Blood Pressure</p>
-                                  <p className="text-[8px] text-stone-400">118/76 mmHg • 8:30 AM</p>
+                                  <p className="text-[10px] font-bold text-stone-900">Blood Pressure</p>
+                                  <p className="text-[8px] text-stone-500">118/76 mmHg • 8:30 AM</p>
                                 </div>
                               </div>
-                              <span className="text-[8px] font-bold text-emerald-400 bg-emerald-950/60 px-1.5 py-0.5 rounded-md border border-emerald-800/40">
+                              <span className="text-[8px] font-bold text-emerald-800 bg-emerald-50 px-1.5 py-0.5 rounded-md border border-emerald-200">
                                 Normal
                               </span>
                             </div>
 
-                            <div className="rounded-xl bg-[#142236] p-2 border border-white/5 flex items-center justify-between">
+                            <div className="rounded-xl bg-white p-2 border border-stone-200/90 shadow-2xs flex items-center justify-between">
                               <div className="flex items-center gap-2">
-                                <div className="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center">
+                                <div className="w-6 h-6 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center">
                                   <Pill className="w-3 h-3" />
                                 </div>
                                 <div>
-                                  <p className="text-[10px] font-bold text-stone-200">Iron & Folic Acid</p>
-                                  <p className="text-[8px] text-stone-400">1 Tablet taken with breakfast</p>
+                                  <p className="text-[10px] font-bold text-stone-900">Iron & Folic Acid</p>
+                                  <p className="text-[8px] text-stone-500">1 Tablet taken with breakfast</p>
                                 </div>
                               </div>
-                              <span className="text-[8px] font-bold text-cyan-400 bg-cyan-950/60 px-1.5 py-0.5 rounded-md border border-cyan-800/40">
+                              <span className="text-[8px] font-bold text-teal-800 bg-teal-50 px-1.5 py-0.5 rounded-md border border-teal-200">
                                 Logged
                               </span>
                             </div>
@@ -407,27 +408,27 @@ export default function LandingPage() {
                       {/* VIEW 2: WEEKLY DEVELOPMENT */}
                       {phoneScreen === 'weekly' && (
                         <div className="space-y-2">
-                          <div className="rounded-2xl bg-gradient-to-br from-teal-700 via-teal-800 to-stone-900 p-3 text-white border border-teal-500/30">
-                            <span className="text-2xl p-1 bg-white/10 rounded-lg inline-block mb-1">🥑</span>
-                            <h4 className="text-xs font-black">Week 16: Avocado (አቮካዶ)</h4>
-                            <p className="text-[9px] text-teal-200 mt-0.5">Length: ~11.6 cm • Weight: ~100 g</p>
-                            <p className="text-[9px] text-stone-300 mt-2 leading-relaxed">
+                          <div className="rounded-2xl bg-white p-3 border border-stone-200/90 shadow-2xs">
+                            <span className="text-2xl p-1 bg-teal-50 rounded-lg inline-block mb-1">🥑</span>
+                            <h4 className="text-xs font-black text-stone-900">Week 16: Avocado (አቮካዶ)</h4>
+                            <p className="text-[9px] text-teal-700 font-bold mt-0.5">Length: ~11.6 cm • Weight: ~100 g</p>
+                            <p className="text-[9px] text-stone-600 mt-2 leading-relaxed">
                               Baby&apos;s eyes are making slow movements, and tiny bones in the ears can now detect mother&apos;s voice and heartbeat!
                             </p>
                           </div>
 
-                          <div className="rounded-xl bg-[#142236] p-2.5 border border-white/5 space-y-1">
-                            <div className="flex items-center gap-1.5 text-amber-400 text-[10px] font-bold">
+                          <div className="rounded-xl bg-amber-50/80 p-2.5 border border-amber-200/70 space-y-1">
+                            <div className="flex items-center gap-1.5 text-amber-900 text-[10px] font-bold">
                               <span>🌾 Ethiopian Nutrition Tip</span>
                             </div>
-                            <p className="text-[9px] text-stone-300 leading-relaxed">
+                            <p className="text-[9px] text-amber-950 leading-relaxed">
                               Pair Teff injera with Key Sir (beetroot) and Gomen (kale) for maximum natural plant iron absorption.
                             </p>
                           </div>
 
-                          <div className="rounded-xl bg-[#142236] p-2.5 border border-white/5 flex items-center justify-between">
-                            <div className="text-[10px] text-stone-200 font-bold">Mom&apos;s Body Changes</div>
-                            <span className="text-[9px] text-teal-400 font-semibold">Glowing skin</span>
+                          <div className="rounded-xl bg-white p-2.5 border border-stone-200/90 flex items-center justify-between">
+                            <div className="text-[10px] text-stone-800 font-bold">Mom&apos;s Body Changes</div>
+                            <span className="text-[9px] text-teal-700 font-semibold bg-teal-50 px-2 py-0.5 rounded-full">Glowing skin</span>
                           </div>
                         </div>
                       )}
@@ -435,62 +436,62 @@ export default function LandingPage() {
                       {/* VIEW 3: MOTHERPRENEUR MARKET */}
                       {phoneScreen === 'market' && (
                         <div className="space-y-2">
-                          <div className="flex items-center justify-between text-[10px] text-stone-300 px-0.5 font-bold">
+                          <div className="flex items-center justify-between text-[10px] text-stone-700 px-0.5 font-bold">
                             <span>Verified Maternal Vendors</span>
-                            <span className="text-amber-400 text-[9px]">MOH Approved</span>
+                            <span className="text-teal-700 text-[9px] bg-teal-50 px-1.5 py-0.5 rounded-md">MOH Approved</span>
                           </div>
 
-                          <div className="rounded-xl bg-[#142236] p-2 border border-white/5 flex items-center justify-between">
+                          <div className="rounded-xl bg-white p-2 border border-stone-200/90 shadow-2xs flex items-center justify-between">
                             <div className="flex items-center gap-2">
                               <span className="text-xl">💊</span>
                               <div>
-                                <p className="text-[10px] font-bold text-stone-200">Prenatal Iron + Folic</p>
-                                <p className="text-[8px] text-stone-400">Addis Maternal Pharmacy</p>
+                                <p className="text-[10px] font-bold text-stone-900">Prenatal Iron + Folic</p>
+                                <p className="text-[8px] text-stone-500">Addis Maternal Pharmacy</p>
                               </div>
                             </div>
-                            <span className="text-[10px] font-black text-cyan-400">280 ETB</span>
+                            <span className="text-[10px] font-black text-teal-700">280 ETB</span>
                           </div>
 
-                          <div className="rounded-xl bg-[#142236] p-2 border border-white/5 flex items-center justify-between">
+                          <div className="rounded-xl bg-white p-2 border border-stone-200/90 shadow-2xs flex items-center justify-between">
                             <div className="flex items-center gap-2">
                               <span className="text-xl">🧴</span>
                               <div>
-                                <p className="text-[10px] font-bold text-stone-200">Shea & Sesame Belly Balm</p>
-                                <p className="text-[8px] text-stone-400">Taitu Herbal Care</p>
+                                <p className="text-[10px] font-bold text-stone-900">Shea & Sesame Belly Balm</p>
+                                <p className="text-[8px] text-stone-500">Taitu Herbal Care</p>
                               </div>
                             </div>
-                            <span className="text-[10px] font-black text-cyan-400">450 ETB</span>
+                            <span className="text-[10px] font-black text-teal-700">450 ETB</span>
                           </div>
 
-                          <div className="rounded-xl bg-[#142236] p-2 border border-white/5 flex items-center justify-between">
+                          <div className="rounded-xl bg-white p-2 border border-stone-200/90 shadow-2xs flex items-center justify-between">
                             <div className="flex items-center gap-2">
                               <span className="text-xl">👶</span>
                               <div>
-                                <p className="text-[10px] font-bold text-stone-200">Cotton Baby Tibeb Blanket</p>
-                                <p className="text-[8px] text-stone-400">Enat Artisan Crafts</p>
+                                <p className="text-[10px] font-bold text-stone-900">Cotton Baby Tibeb Blanket</p>
+                                <p className="text-[8px] text-stone-500">Enat Artisan Crafts</p>
                               </div>
                             </div>
-                            <span className="text-[10px] font-black text-cyan-400">850 ETB</span>
+                            <span className="text-[10px] font-black text-teal-700">850 ETB</span>
                           </div>
                         </div>
                       )}
                     </div>
 
                     {/* Bottom Navigation Dock inside Phone */}
-                    <div className="border-t border-white/10 bg-[#09111c] px-3 py-1.5 flex items-center justify-between text-stone-400">
-                      <div className="flex flex-col items-center gap-0.5 text-cyan-400">
-                        <Heart className="w-3.5 h-3.5 fill-cyan-400/30" />
+                    <div className="border-t border-stone-200/80 bg-white px-3 py-1.5 flex items-center justify-between text-stone-500">
+                      <div className="flex flex-col items-center gap-0.5 text-teal-700">
+                        <Heart className="w-3.5 h-3.5 fill-teal-700/20" />
                         <span className="text-[7px] font-bold">Home</span>
                       </div>
-                      <div className="flex flex-col items-center gap-0.5 hover:text-stone-200 transition">
+                      <div className="flex flex-col items-center gap-0.5 hover:text-stone-900 transition">
                         <Calendar className="w-3.5 h-3.5" />
                         <span className="text-[7px] font-medium">Weekly</span>
                       </div>
-                      <div className="flex flex-col items-center gap-0.5 hover:text-stone-200 transition">
+                      <div className="flex flex-col items-center gap-0.5 hover:text-stone-900 transition">
                         <ShoppingBag className="w-3.5 h-3.5" />
                         <span className="text-[7px] font-medium">Market</span>
                       </div>
-                      <div className="flex flex-col items-center gap-0.5 hover:text-stone-200 transition">
+                      <div className="flex flex-col items-center gap-0.5 hover:text-stone-900 transition">
                         <Users className="w-3.5 h-3.5" />
                         <span className="text-[7px] font-medium">Circle</span>
                       </div>
